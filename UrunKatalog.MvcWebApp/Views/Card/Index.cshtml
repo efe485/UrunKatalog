@@ -1,0 +1,83 @@
+﻿@model UrunKatalog.MvcWebApp.Entity.Card
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Alışveriş Sepeti</h2>
+            <hr />
+
+            @if (Model.CardLines.Count > 0)
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ürün Resmi</th>
+                            <th>Adet</th>
+                            <th>Ürün</th>
+                            <th>Fiyat</th>
+                            <th>Toplam</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.CardLines)
+                        {
+                            <tr>
+                                <td><img src="/Upload/@item.Product.Image" width="90"/></td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Product.Name</td>
+                                <td>@item.Product.Price</td>
+                                <td>@((item.Product.Price * item.Quantity).ToString("c"))</td>
+                                <td>
+                                    @using (Html.BeginForm("DeleteFromCard", "Card"))
+                                    {
+                                        @Html.Hidden("Id", item.Product.Id)
+
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                            Sil
+                                        </button>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td>
+                                @Model.Total().ToString("c")
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+                <div class="text-center">
+                    <a href="/Home/List" class="btn btn-primary">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        Alışverişe Devam Et
+                    </a>
+                    <a href="/Card/Checkout" class="btn btn-primary">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Alışverişi Tamamla
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Alışveriş Sepetinizde Ürün Bulunmamaktadır.
+                </div>
+            }
+        </div>
+    </div>
+</div>

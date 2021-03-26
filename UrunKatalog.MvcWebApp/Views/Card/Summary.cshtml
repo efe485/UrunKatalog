@@ -1,0 +1,22 @@
+﻿@model UrunKatalog.MvcWebApp.Entity.Card
+
+<style>
+    #card{
+        color : white;
+    }
+</style>
+
+<ul class="navbar nav my-2 my-lg-0">
+    <li class="nav-item">
+        <a  id="card" class="nav-link" href="/Card/Index">
+            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            @{int Count = 0; }
+            @foreach (var item in @Model.CardLines)
+            {
+                Count += item.Quantity;
+            }
+            (@Count)
+        </a>
+    </li>
+</ul>
+

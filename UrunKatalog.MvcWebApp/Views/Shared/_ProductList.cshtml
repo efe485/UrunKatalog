@@ -1,0 +1,33 @@
+﻿@using UrunKatalog.MvcWebApp.Models;
+@model IEnumerable<ProductModel>
+
+<div class="row">
+    @foreach (var urun in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="foto row align-self-center">
+                    <img class="card-img-top align-self-center" src="/Upload/@urun.Image" alt="Card image cap">
+                </div>
+                    <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="/Home/Details/@urun.Id">@urun.Name</a>
+                    </h4>
+                    <p class="card-text pt-2 description">@urun.Description</p>
+                </div>
+                <div class="card-footer">
+                    <small class="product-price">
+                        <i class="fas fa-lira-sign"></i>
+                        @urun.Price
+
+                        <a href="/Home/Details/@urun.Id" 
+                           class="btn btn-primary btn-sm float-right" >
+                            <i class="fas fa-angle-double-right"></i>
+                        Ürünü İncele</a>
+
+                    </small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
